@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.sp
           .then(modifier)){
       Text(text = symbol,
           fontSize = 36.sp,
-          color = MaterialTheme.colorScheme.tertiary)
+          color = MaterialTheme.colorScheme.onSecondary)
 
 
   }

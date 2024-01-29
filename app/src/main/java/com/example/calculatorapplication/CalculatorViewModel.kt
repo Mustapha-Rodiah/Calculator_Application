@@ -27,14 +27,26 @@ class CalculatorViewModel: ViewModel() {
     }
 
     private fun enterOperation(operation: CalculatorOperation) {
-if(state.firstNumber.isNotEmpty()){
-    state = state.copy(operation = operation)
-return
-}
-        if(state.firstNumber.isNotBlank() && state.operation != null && state.secondNumber.isNotBlank()){
+        if (state.firstNumber.isNotEmpty() && state.operation == null) {
+            state = state.copy(operation = operation)
+            return
+        }
+
+        if (state.firstNumber.isNotBlank() && state.operation != null && state.secondNumber.isNotBlank()) {
             performCalculation()
         }
+
+        if (operation == CalculatorOperation.Equals) {
+            // Clear the operation after performing the calculation
+            state = state.copy(operation = null)
+        } else {
+            // Set the current operation
+            state = state.copy(operation = operation)
+        }
     }
+
+
+
 
 
     private fun enterDecimal(){
@@ -64,6 +76,7 @@ if(state.firstNumber.isBlank() && state.operation == null && !state.firstNumber.
         }
 
     }
+
     private fun delete(){
         when {
             state.secondNumber.isNotBlank() -> state = state.copy(
@@ -86,11 +99,13 @@ val firstNumber = state.firstNumber.toDoubleOrNull()
                 is CalculatorOperation.Subtract -> firstNumber - secondNumber
                 is CalculatorOperation.Multiply -> firstNumber * secondNumber
                 is CalculatorOperation.Divide -> firstNumber / secondNumber
-              null -> return
+
+                else -> {}
             }
             state = state.copy(
                 firstNumber = result.toString().take(15),
-                secondNumber = ""
+                secondNumber = "",
+                operation = null
             )
         }
 

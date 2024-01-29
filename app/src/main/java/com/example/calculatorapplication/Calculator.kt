@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -28,12 +29,14 @@ fun Calculator(state: CalculatorState,
                modifier: Modifier = Modifier,
                buttonSpacing: Dp = 8.dp){
 
-    Box(modifier = modifier){
-        Column (modifier = modifier
+    Box(modifier = modifier.fillMaxSize().background(color = Color.White).padding(16.dp)
+        ){
+        Column (modifier = Modifier
             .fillMaxWidth()
             .align(Alignment.BottomCenter),
-            verticalArrangement = Arrangement.spacedBy(buttonSpacing)){
-Text(text = state.firstNumber + state.operation ?: "" + state.secondNumber,
+            verticalArrangement = Arrangement.spacedBy(buttonSpacing),)
+        {
+Text(text = state.firstNumber + state.operation ?.symbol?: "" + state.secondNumber,
     textAlign = TextAlign.End,
     fontSize = 80.sp,
     color= Color.White,
